@@ -3,13 +3,12 @@ import arcade
 from characters import Player, Enemy, Coin, Wall
 """
 מודול הלוגיקה הראשית של משחק הפקמן.
-
 מכיל את המחלקה:
 - PacmanGame: ניהול מצב המשחק, ציור, עדכון ותשובת מקלדת.
 """
 
 
-class PacmanGame(arcade.View()):
+class PacmanGame(arcade.View):
     def __init__(self):
         super().__init__()
         self.background_color = arcade.color.BLACK

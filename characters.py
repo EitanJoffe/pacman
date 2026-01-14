@@ -54,7 +54,7 @@ class Enemy(Character):
             self.center_x = self.change_x * self.speed
             self.center_y = self.change_y * self.speed
 
-class Coin(arcade.sprite):
+class Coin(arcade.Sprite):
     def __init__(self, center_x, center_y):
         super().__init__()
         radius = TILE_SIZE // 2 - 10
@@ -66,8 +66,9 @@ class Coin(arcade.sprite):
         self.center_y = center_y
         self.value = 10
 
-class Wall(arcade.sprite):
+class Wall(arcade.Sprite):
     def __init__(self, center_x, center_y):
+        super().__init__()
         texture = arcade.make_soft_square_texture(TILE_SIZE,arcade.color.BLUE,TILE_SIZE // 2)
         self.texture = texture
         self.width = texture.width
