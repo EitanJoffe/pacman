@@ -1,5 +1,3 @@
-from arcade.experimental.shapes_perf import TITLE
-
 from constants import LEVEL_MAP, TILE_SIZE,WINDOW_WIDTH,WINDOW_HEIGHT
 import arcade
 from characters import Player, Enemy, Coin, Wall
@@ -58,3 +56,41 @@ class PacmanGame(arcade.View):
         if self.player.lives==0:
             self.game_over=True
             arcade.draw_text("You Lost ",WINDOW_WIDTH//2,WINDOW_HEIGHT//2,arcade.color.YELLOW,WINDOW_WIDTH//5)
+
+    def on_update(self, delta_time):
+        if self.game_over == True:
+            return
+
+        current_x = self.player.center_x
+        current_y = self.player.center_y
+        self.player.move()
+        wall_collision_list = arcade.check_for_collision_with_list(self.player, self.wall_list)
+
+        for wall in wall_collision_list:
+            if self.player.center_x == wall.center_x and self.player.center_y == wall.center_y:
+                self.player.center_x, self.player_list.center_y = current_x, current_y
+
+        for ghost in self.ghost_list:
+            ghost_x = ghost.center_x
+            ghost_y = ghost.center_y
+            ghost.update_place(delta_time)
+            for wall in wall_collision_list:
+                 if ghost.center_y == wall.center_x and ghost.center_y == wall.center_y:
+                    ghost.center_x = ghost_x
+                    ghost.center_y = ghost_y
+                    ghost.pick_new_direction()
+
+        coin_collision_list = arcade.check_for_collision_with_list(self.player, self.coin_list)
+        for coin in coin_collision_list:
+            if self.player.center_x == coin.center_x and self.player.center_y and coin.center_y:
+                coin.remove_from_sprite_lists()
+                self.player.score += coin.value
+
+        ghost_collision_list = arcade.check_for_collision_with_list(self.player, self.ghost_list)
+        for ghost in ghost_collision_list:
+            if self.player.center_x == ghost.center_x and self.player.center_y == ghost.center_y:
+                self.player.lives -= 1
+                self.player.center_x, self.player.center_y = TILE_SIZE, TILE_SIZE
+                self.player.speed = 1
+        if self.player.lives == 0:
+            self.game_over = True
