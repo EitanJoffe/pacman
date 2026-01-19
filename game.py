@@ -69,7 +69,7 @@ class PacmanGame(arcade.View):
         if key==arcade.key.LEFT:
             self.player.change_x=-1
         if key==arcade.key.RIGHT:
-            self.player.change_x=-1
+            self.player.change_x=1
 
         if self.game_over==True:
             if key==arcade.key.SPACE:
