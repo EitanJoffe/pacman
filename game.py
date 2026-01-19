@@ -58,3 +58,10 @@ class PacmanGame(arcade.View):
         if self.player.lives==0:
             self.game_over=True
             arcade.draw_text("You Lost ",WINDOW_WIDTH//2,WINDOW_HEIGHT//2,arcade.color.YELLOW,WINDOW_WIDTH//5)
+
+    def on_key_release(self,key,modifiers):
+        if key == arcade.key.UP or key == arcade.key.DOWN:
+            self.player.change.y = 0
+        if key == arcade.key.RIGHT or key == arcade.key.LEFT:
+            self.player.change.x = 0
+
