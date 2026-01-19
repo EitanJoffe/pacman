@@ -1,3 +1,5 @@
+from turtledemo.clock import setup
+
 from arcade.experimental.shapes_perf import TITLE
 
 from constants import LEVEL_MAP, TILE_SIZE,WINDOW_WIDTH,WINDOW_HEIGHT
@@ -58,6 +60,20 @@ class PacmanGame(arcade.View):
         if self.player.lives==0:
             self.game_over=True
             arcade.draw_text("You Lost ",WINDOW_WIDTH//2,WINDOW_HEIGHT//2,arcade.color.YELLOW,WINDOW_WIDTH//5)
+
+    def on_key_press(self,key,modifiers):
+        if key==arcade.key.UP:
+            self.player.change_y=1
+        if key==arcade.key.DOWN:
+            self.player.center_y=-1
+        if key==arcade.key.LEFT:
+            self.player.change_x=-1
+        if key==arcade.key.RIGHT:
+            self.player.change_x=-1
+
+        if self.game_over==True:
+            if key==arcade.key.SPACE:
+                self.setup()
 
     def on_key_release(self,key,modifiers):
         if key == arcade.key.UP or key == arcade.key.DOWN:
