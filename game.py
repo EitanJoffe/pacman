@@ -1,3 +1,5 @@
+from arcade.experimental.shapes_perf import TITLE
+
 from constants import LEVEL_MAP, TILE_SIZE,WINDOW_WIDTH,WINDOW_HEIGHT
 import arcade
 from characters import Player, Enemy, Coin, Wall
@@ -50,8 +52,8 @@ class PacmanGame(arcade.View):
         self.coin_list.draw()
         self.ghost_list.draw()
         self.player_list.draw()
-        arcade.draw_text(self.player.score,0,WINDOW_HEIGHT,arcade.color.YELLOW,TILE_SIZE//2)
-        arcade.draw_text(self.player.lives,0,WINDOW_HEIGHT-TILE_SIZE,arcade.color.RED,TILE_SIZE//2)
+        arcade.draw_text(self.player.score,50,WINDOW_HEIGHT-TILE_SIZE,arcade.color.YELLOW,TILE_SIZE-TILE_SIZE//4)
+        arcade.draw_text(self.player.lives,50,WINDOW_HEIGHT-TILE_SIZE*2,arcade.color.RED,TILE_SIZE-TILE_SIZE//4)
 
         if self.player.lives==0:
             self.game_over=True
