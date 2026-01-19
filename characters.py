@@ -34,8 +34,8 @@ class Player(Character):
         self.lives = 3
 
     def move(self):
-        self.center_x = self.change_x * self.speed
-        self.center_y = self.change_y * self.speed
+        self.center_x += self.change_x * self.speed
+        self.center_y += self.change_y * self.speed
 
 class Enemy(Character):
     def __init__(self, center_x, center_y, speed):
