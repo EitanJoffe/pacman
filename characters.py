@@ -14,7 +14,7 @@ from constants import TILE_SIZE
 """
 
 class Character(arcade.Sprite):
-    def _init_(self, center_x, center_y, speed, color):
+    def __init__(self, center_x, center_y, speed, color):
         super().__init__()
         radius = TILE_SIZE // 2 - 2
         texture = arcade.make_circle_texture(radius * 2, color)
