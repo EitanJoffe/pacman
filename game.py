@@ -8,16 +8,13 @@ from characters import Player, Enemy, Coin, Wall
 - PacmanGame: ניהול מצב המשחק, ציור, עדכון ותשובת מקלדת.
 """
 
-"""
-need to change the starting position of the player after a collision with a ghost
-need to fix when you lose the game, that it will reset the board, and not duplicate 2 players and have bugs
-"""
+
 class PacmanGame(arcade.View):
     def __init__(self):
         super().__init__()
         self.background_color = arcade.color.BLACK
-        self.start_x = 0
-        self.start_y = 0
+        self.start_x = TILE_SIZE * 1.5
+        self.start_y = TILE_SIZE * 1.5
         self.game_over = False
         self.wall_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
@@ -26,7 +23,11 @@ class PacmanGame(arcade.View):
         self.player=None
 
     def setup(self):
-        flag = False
+        self.game_over = False
+        self.wall_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
+        self.ghost_list = arcade.SpriteList()
+        self.player_list = arcade.SpriteList()
 
         rows = len(LEVEL_MAP)
         for row_idx, row in enumerate(LEVEL_MAP):
@@ -47,6 +48,12 @@ class PacmanGame(arcade.View):
                 elif current == 'G':
                     current = Enemy(x,y, 2)
                     self.ghost_list.append(current)
+
+        if self.player is None:
+            player =  Player(self.start_x, self.start_y, 2)
+            self.player = player
+            self.player_list.append(player)
+
 
     def on_draw(self):
         self.clear()
@@ -74,7 +81,7 @@ class PacmanGame(arcade.View):
         if self.game_over:
             if key==arcade.key.SPACE:
                 self.setup()
-
+            return
 
     def on_key_release(self,key,modifiers):
         if key == arcade.key.UP or key == arcade.key.DOWN:
@@ -117,7 +124,8 @@ class PacmanGame(arcade.View):
         for ghost in ghost_collision_list:
             if arcade.check_for_collision(self.player, ghost):
                 self.player.lives -= 1
-                self.player.center_x, self.player.center_y = TILE_SIZE, TILE_SIZE
+                self.player.center_x, self.player.center_y = self.start_x, self.start_y
                 self.player.speed = 2
         if self.player.lives == 0:
             self.game_over = True
+
