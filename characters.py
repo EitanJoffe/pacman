@@ -49,10 +49,11 @@ class Enemy(Character):
 
     def update_place(self, delta_time = 1 / 60):
         self.time_to_change_direction -= delta_time
-        if self.time_to_change_direction == 0:
+        if self.time_to_change_direction <= 0:
             self.pick_new_direction()
-            self.center_x = self.change_x * self.speed
-            self.center_y = self.change_y * self.speed
+
+        self.center_x += self.change_x * self.speed
+        self.center_y += self.change_y * self.speed
 
 class Coin(arcade.Sprite):
     def __init__(self, center_x, center_y):
