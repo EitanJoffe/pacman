@@ -61,12 +61,12 @@ class PacmanGame(arcade.View):
         self.coin_list.draw()
         self.ghost_list.draw()
         self.player_list.draw()
-        arcade.draw_text(self.player.score,50,WINDOW_HEIGHT-TILE_SIZE,arcade.color.YELLOW,TILE_SIZE-TILE_SIZE//4)
-        arcade.draw_text(self.player.lives,50,WINDOW_HEIGHT-TILE_SIZE*2,arcade.color.RED,TILE_SIZE-TILE_SIZE//4)
+        arcade.draw_text(self.player.score,TILE_SIZE,WINDOW_HEIGHT-TILE_SIZE,arcade.color.YELLOW,TILE_SIZE-TILE_SIZE//4)
+        arcade.draw_text(self.player.lives,TILE_SIZE,WINDOW_HEIGHT-TILE_SIZE*2,arcade.color.RED,TILE_SIZE-TILE_SIZE//4)
 
         if self.player.lives==0:
             self.game_over=True
-            arcade.draw_text("You Lost ",WINDOW_WIDTH//5,WINDOW_HEIGHT//5,arcade.color.RED,WINDOW_WIDTH//5)
+            arcade.draw_text("You Lost ",WINDOW_WIDTH//4,WINDOW_HEIGHT//2,arcade.color.RED,WINDOW_WIDTH//8)
 
     def on_key_press(self,key,modifiers):
         if key==arcade.key.UP:
