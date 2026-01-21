@@ -68,6 +68,10 @@ class PacmanGame(arcade.View):
             self.game_over=True
             arcade.draw_text("You Lost ",WINDOW_WIDTH//4,WINDOW_HEIGHT//2,arcade.color.RED,WINDOW_WIDTH//8)
 
+        if len(self.coin_list) == 0:
+            self.game_over = True
+            arcade.draw_text("You Won! ", WINDOW_WIDTH // 4, WINDOW_HEIGHT // 2, arcade.color.YELLOW, WINDOW_WIDTH // 8)
+
     def on_key_press(self,key,modifiers):
         if key==arcade.key.UP:
             self.player.change_y=1
@@ -119,7 +123,6 @@ class PacmanGame(arcade.View):
             if arcade.check_for_collision(self.player, coin):
                 coin.remove_from_sprite_lists()
                 self.player.score += coin.value
-
 
         ghost_collision_list = arcade.check_for_collision_with_list(self.player, self.ghost_list)
         for ghost in ghost_collision_list:
