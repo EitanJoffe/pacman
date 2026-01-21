@@ -43,7 +43,7 @@ class Enemy(Character):
         self.time_to_change_direction = 0
 
     def pick_new_direction(self):
-        directions = [(0,1), (0,-1), (1,0), (-1,0), (0,0)]
+        directions = [(0,1), (0,-1), (1,0), (-1,0)]
         self.change_x, self.change_y = random.choice(directions)
         self.time_to_change_direction = random.uniform(0.3, 1.0)
 

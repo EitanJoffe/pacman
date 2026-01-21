@@ -46,7 +46,7 @@ class PacmanGame(arcade.View):
                     self.player = current
                     self.player_list.append(current)
                 elif current == 'G':
-                    current = Enemy(x,y, 2)
+                    current = Enemy(x,y, 1.8)
                     self.ghost_list.append(current)
 
         if self.player is None:
@@ -104,10 +104,10 @@ class PacmanGame(arcade.View):
                 self.player.center_x, self.player.center_y = current_x, current_y
 
         for ghost in self.ghost_list:
-            wall_collision_with_ghost_list = arcade.check_for_collision_with_list(ghost, self.wall_list)
             ghost_x = ghost.center_x
             ghost_y = ghost.center_y
             ghost.update_place(delta_time)
+            wall_collision_with_ghost_list = arcade.check_for_collision_with_list(ghost, self.wall_list)
             for wall in wall_collision_with_ghost_list:
                  if arcade.check_for_collision(ghost, wall):
                     ghost.center_x = ghost_x
@@ -119,6 +119,7 @@ class PacmanGame(arcade.View):
             if arcade.check_for_collision(self.player, coin):
                 coin.remove_from_sprite_lists()
                 self.player.score += coin.value
+
 
         ghost_collision_list = arcade.check_for_collision_with_list(self.player, self.ghost_list)
         for ghost in ghost_collision_list:
