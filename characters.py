@@ -17,7 +17,7 @@ class Character(arcade.Sprite):
     def __init__(self, center_x, center_y, speed, color):
         super().__init__()
         radius = TILE_SIZE // 2 - 2
-        texture = arcade.make_circle_texture(radius * 2, color)
+        texture = arcade.make_circle_texture(radius + 12 , color)
         self.texture = texture
         self.center_x = center_x
         self.center_y = center_y
