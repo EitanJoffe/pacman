@@ -1,6 +1,7 @@
 from constants import LEVEL_MAP, TILE_SIZE,WINDOW_WIDTH,WINDOW_HEIGHT
 import arcade
 from characters import Player, Enemy, Coin, Wall, Apple
+import time
 
 """
 מודול הלוגיקה הראשית של משחק הפקמן.
@@ -22,6 +23,9 @@ class PacmanGame(arcade.View):
         self.player_list = arcade.SpriteList()
         self.apple_list = arcade.SpriteList()
         self.player=None
+        self.speed_boost_active = False
+        self.speed_boost_start = 0
+        self.speed_boost_score = 300
 
     def setup(self):
         self.game_over = False
@@ -98,6 +102,10 @@ class PacmanGame(arcade.View):
         if key == arcade.key.RIGHT or key == arcade.key.LEFT:
             self.player.change_x = 0
 
+    def activate_speed_boost(self):
+        self.player.speed = 4
+        self.speed_boost_active = True
+        self.speed_boost_start = time.time()
 
     def on_update(self, delta_time):
         if self.game_over:
@@ -128,6 +136,9 @@ class PacmanGame(arcade.View):
             if arcade.check_for_collision(self.player, coin):
                 coin.remove_from_sprite_lists()
                 self.player.score += coin.value
+                if self.player.score >= self.speed_boost_score:
+                    self.activate_speed_boost()
+                    self.speed_boost_score += 300
 
         for apple in arcade.check_for_collision_with_list(self.player, self.apple_list):
             apple.remove_from_sprite_lists()
@@ -142,4 +153,8 @@ class PacmanGame(arcade.View):
         if self.player.lives == 0:
             self.game_over = True
 
+        if self.speed_boost_active:
+            if time.time() - self.speed_boost_start >= 5:
+                self.player.speed = 2
+                self.speed_boost_active = False
 
