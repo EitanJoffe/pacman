@@ -1,6 +1,6 @@
 from constants import LEVEL_MAP, TILE_SIZE,WINDOW_WIDTH,WINDOW_HEIGHT
 import arcade
-from characters import Player, Enemy, Coin, Wall
+from characters import Player, Enemy, Coin, Wall, Apple
 
 """
 מודול הלוגיקה הראשית של משחק הפקמן.
@@ -20,6 +20,7 @@ class PacmanGame(arcade.View):
         self.coin_list = arcade.SpriteList()
         self.ghost_list = arcade.SpriteList()
         self.player_list = arcade.SpriteList()
+        self.apple_list = arcade.SpriteList()
         self.player=None
 
     def setup(self):
@@ -28,6 +29,7 @@ class PacmanGame(arcade.View):
         self.coin_list = arcade.SpriteList()
         self.ghost_list = arcade.SpriteList()
         self.player_list = arcade.SpriteList()
+        self.apple_list = arcade.SpriteList()
 
         rows = len(LEVEL_MAP)
         for row_idx, row in enumerate(LEVEL_MAP):
@@ -48,6 +50,8 @@ class PacmanGame(arcade.View):
                 elif current == 'G':
                     current = Enemy(x,y, 1.8)
                     self.ghost_list.append(current)
+                elif cell == 'A':
+                    self.apple_list.append(Apple(x, y))
 
         if self.player is None:
             player =  Player(self.start_x, self.start_y, 2)
@@ -59,6 +63,7 @@ class PacmanGame(arcade.View):
         self.clear()
         self.wall_list.draw()
         self.coin_list.draw()
+        self.apple_list.draw()
         self.ghost_list.draw()
         self.player_list.draw()
         arcade.draw_text(self.player.score,TILE_SIZE,WINDOW_HEIGHT-TILE_SIZE,arcade.color.YELLOW,TILE_SIZE-TILE_SIZE//4)
@@ -124,6 +129,10 @@ class PacmanGame(arcade.View):
                 coin.remove_from_sprite_lists()
                 self.player.score += coin.value
 
+        for apple in arcade.check_for_collision_with_list(self.player, self.apple_list):
+            apple.remove_from_sprite_lists()
+            self.player.score += apple.value
+
         ghost_collision_list = arcade.check_for_collision_with_list(self.player, self.ghost_list)
         for ghost in ghost_collision_list:
             if arcade.check_for_collision(self.player, ghost):
@@ -132,4 +141,5 @@ class PacmanGame(arcade.View):
                 self.player.speed = 2
         if self.player.lives == 0:
             self.game_over = True
+
 

@@ -76,3 +76,10 @@ class Wall(arcade.Sprite):
         self.height = texture.height
         self.center_x = center_x
         self.center_y = center_y
+
+class Apple(arcade.Sprite):
+    def __init__(self, x, y):
+        super().__init__("pacman_picture/apple.png", scale=0.05)
+        self.center_x = x
+        self.center_y = y
+        self.value = 50
