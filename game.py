@@ -154,7 +154,9 @@ class PacmanGame(arcade.View):
             self.game_over = True
 
         if self.speed_boost_active:
+            self.player.color = arcade.color.GREEN
             if time.time() - self.speed_boost_start >= 5:
                 self.player.speed = 2
                 self.speed_boost_active = False
+                self.player.color = arcade.color.YELLOW
 
