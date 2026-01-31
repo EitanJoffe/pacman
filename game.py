@@ -164,3 +164,15 @@ class PacmanGame(arcade.View):
                 self.speed_boost_active = False
                 self.player.color = arcade.color.YELLOW
 
+        if self.player.center_x<0:
+            self.player.center_x=WINDOW_WIDTH
+        if self.player.center_x>WINDOW_WIDTH:
+            self.player.center_x=0
+
+        for ghost in self.ghost_list:
+            if ghost.center_x<0:
+                ghost.center_x=WINDOW_WIDTH
+            if ghost.center_x>WINDOW_WIDTH:
+                ghost.center_x=0
+
+
