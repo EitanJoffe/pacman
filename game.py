@@ -147,6 +147,10 @@ class PacmanGame(arcade.View):
         ghost_collision_list = arcade.check_for_collision_with_list(self.player, self.ghost_list)
         for ghost in ghost_collision_list:
             if arcade.check_for_collision(self.player, ghost):
+                if self.speed_boost_active:
+                    self.player.speed = 2
+                    self.speed_boost_active = False
+                    self.player.color = arcade.color.YELLOW
                 self.player.lives -= 1
                 self.player.center_x, self.player.center_y = self.start_x, self.start_y
                 self.player.speed = 2
