@@ -82,13 +82,13 @@ class PacmanGame(arcade.View):
             arcade.draw_text("You Won! ", WINDOW_WIDTH // 4, WINDOW_HEIGHT // 2, arcade.color.YELLOW, WINDOW_WIDTH // 8)
 
     def on_key_press(self,key,modifiers):
-        if key==arcade.key.UP:
+        if key==arcade.key.UP or key==arcade.key.W:
             self.player.change_y=1
-        if key==arcade.key.DOWN:
+        if key==arcade.key.DOWN or key == arcade.key.S:
             self.player.change_y=-1
-        if key==arcade.key.LEFT:
+        if key==arcade.key.LEFT or key==arcade.key.A:
             self.player.change_x=-1
-        if key==arcade.key.RIGHT:
+        if key==arcade.key.RIGHT or key==arcade.key.D:
             self.player.change_x=1
 
         if self.game_over:
@@ -97,9 +97,9 @@ class PacmanGame(arcade.View):
             return
 
     def on_key_release(self,key,modifiers):
-        if key == arcade.key.UP or key == arcade.key.DOWN:
+        if key == arcade.key.UP or key == arcade.key.DOWN or key==arcade.key.W or key==arcade.key.S:
             self.player.change_y = 0
-        if key == arcade.key.RIGHT or key == arcade.key.LEFT:
+        if key == arcade.key.RIGHT or key == arcade.key.LEFT or key==arcade.key.A or key==arcade.key.D:
             self.player.change_x = 0
 
     def activate_speed_boost(self):
